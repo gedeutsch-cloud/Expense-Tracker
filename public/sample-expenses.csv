@@ -1,0 +1,139 @@
+date,description,category,amount
+2026-04-09,Trader Joe's,Food,169.95
+2026-04-11,Trader Joe's,Food,151.77
+2026-04-09,Trader Joe's,Food,172.88
+2026-04-08,Trader Joe's,Food,147.00
+2026-04-04,Dinner out,Food,80.16
+2026-04-09,Dinner out,Food,58.65
+2026-04-04,Dinner out,Food,66.83
+2026-04-17,Dinner out,Food,56.80
+2026-04-19,Gas,Transport,67.28
+2026-04-25,Gas,Transport,66.23
+2026-04-13,NJ Transit pass,Transport,215.00
+2026-04-18,NJ Transit pass,Transport,215.00
+2026-04-01,Mortgage,Housing,3200.00
+2026-04-25,PSE&G,Utilities,237.84
+2026-04-05,PSE&G,Utilities,234.47
+2026-04-15,Streaming,Entertainment,45.00
+2026-04-09,Streaming,Entertainment,45.00
+2026-04-19,Copay,Health,74.08
+2026-04-08,Copay,Health,61.14
+2026-04-17,Target run,Shopping,98.15
+2026-04-08,Target run,Shopping,130.12
+2026-04-18,Kids activities,Other,199.19
+2026-04-24,Kids activities,Other,99.76
+2026-05-01,Trader Joe's,Food,156.36
+2026-05-08,Trader Joe's,Food,166.24
+2026-05-12,Trader Joe's,Food,149.99
+2026-05-01,Trader Joe's,Food,172.84
+2026-05-10,Dinner out,Food,64.23
+2026-05-22,Dinner out,Food,80.84
+2026-05-05,Dinner out,Food,73.48
+2026-05-07,Dinner out,Food,63.45
+2026-05-11,Gas,Transport,62.79
+2026-05-01,Gas,Transport,56.72
+2026-05-12,NJ Transit pass,Transport,215.00
+2026-05-01,NJ Transit pass,Transport,215.00
+2026-05-18,Mortgage,Housing,3200.00
+2026-05-26,PSE&G,Utilities,208.73
+2026-05-09,PSE&G,Utilities,211.32
+2026-05-26,Streaming,Entertainment,45.00
+2026-05-09,Streaming,Entertainment,45.00
+2026-05-06,Copay,Health,114.66
+2026-05-22,Copay,Health,96.96
+2026-05-21,Target run,Shopping,138.01
+2026-05-06,Target run,Shopping,116.91
+2026-05-26,Kids activities,Other,168.62
+2026-05-05,Kids activities,Other,121.48
+2026-06-05,Trader Joe's,Food,171.32
+2026-06-17,Trader Joe's,Food,164.24
+2026-06-09,Trader Joe's,Food,144.66
+2026-06-21,Trader Joe's,Food,141.94
+2026-06-22,Dinner out,Food,91.90
+2026-06-20,Dinner out,Food,59.11
+2026-06-24,Dinner out,Food,73.64
+2026-06-20,Dinner out,Food,73.04
+2026-06-08,Gas,Transport,68.03
+2026-06-18,Gas,Transport,64.45
+2026-06-21,NJ Transit pass,Transport,215.00
+2026-06-03,NJ Transit pass,Transport,215.00
+2026-06-08,Mortgage,Housing,3200.00
+2026-06-20,PSE&G,Utilities,201.39
+2026-06-13,PSE&G,Utilities,217.61
+2026-06-08,Streaming,Entertainment,45.00
+2026-06-25,Streaming,Entertainment,45.00
+2026-06-26,Copay,Health,59.51
+2026-06-16,Copay,Health,107.51
+2026-06-01,Target run,Shopping,128.18
+2026-06-08,Target run,Shopping,98.44
+2026-06-25,Kids activities,Other,146.01
+2026-06-26,Kids activities,Other,197.91
+2026-07-05,Trader Joe's,Food,165.71
+2026-07-17,Trader Joe's,Food,162.03
+2026-07-02,Trader Joe's,Food,175.37
+2026-07-25,Trader Joe's,Food,179.89
+2026-07-13,Dinner out,Food,63.37
+2026-07-08,Dinner out,Food,79.72
+2026-07-03,Dinner out,Food,65.20
+2026-07-09,Dinner out,Food,93.97
+2026-07-07,Gas,Transport,56.20
+2026-07-05,Gas,Transport,50.69
+2026-07-03,NJ Transit pass,Transport,215.00
+2026-07-22,NJ Transit pass,Transport,215.00
+2026-07-16,Mortgage,Housing,3200.00
+2026-07-07,PSE&G,Utilities,226.75
+2026-07-02,PSE&G,Utilities,212.98
+2026-07-24,Streaming,Entertainment,45.00
+2026-07-12,Streaming,Entertainment,45.00
+2026-07-14,Copay,Health,78.37
+2026-07-19,Copay,Health,33.73
+2026-07-16,Target run,Shopping,67.51
+2026-07-05,Target run,Shopping,139.69
+2026-07-27,Kids activities,Other,157.14
+2026-07-10,Kids activities,Other,118.02
+2026-08-12,Trader Joe's,Food,156.99
+2026-08-20,Trader Joe's,Food,170.05
+2026-08-06,Trader Joe's,Food,168.69
+2026-08-09,Trader Joe's,Food,150.65
+2026-08-15,Dinner out,Food,94.55
+2026-08-12,Dinner out,Food,88.66
+2026-08-21,Dinner out,Food,88.42
+2026-08-06,Dinner out,Food,62.45
+2026-08-26,Gas,Transport,64.29
+2026-08-02,Gas,Transport,69.64
+2026-08-26,NJ Transit pass,Transport,215.00
+2026-08-04,NJ Transit pass,Transport,215.00
+2026-08-23,Mortgage,Housing,3200.00
+2026-08-23,PSE&G,Utilities,216.08
+2026-08-09,PSE&G,Utilities,198.79
+2026-08-15,Streaming,Entertainment,45.00
+2026-08-02,Streaming,Entertainment,45.00
+2026-08-06,Copay,Health,75.04
+2026-08-16,Copay,Health,71.20
+2026-08-12,Target run,Shopping,117.18
+2026-08-06,Target run,Shopping,133.68
+2026-08-20,Kids activities,Other,192.68
+2026-08-08,Kids activities,Other,162.79
+2026-09-22,Trader Joe's,Food,163.32
+2026-09-10,Trader Joe's,Food,161.41
+2026-09-26,Trader Joe's,Food,148.40
+2026-09-22,Trader Joe's,Food,169.07
+2026-09-16,Dinner out,Food,59.74
+2026-09-03,Dinner out,Food,73.22
+2026-09-10,Dinner out,Food,56.42
+2026-09-21,Dinner out,Food,83.18
+2026-09-17,Gas,Transport,61.57
+2026-09-14,Gas,Transport,50.28
+2026-09-05,NJ Transit pass,Transport,215.00
+2026-09-16,NJ Transit pass,Transport,215.00
+2026-09-04,Mortgage,Housing,3200.00
+2026-09-07,PSE&G,Utilities,190.18
+2026-09-01,PSE&G,Utilities,242.55
+2026-09-12,Streaming,Entertainment,45.00
+2026-09-14,Streaming,Entertainment,45.00
+2026-09-01,Copay,Health,54.66
+2026-09-11,Copay,Health,41.72
+2026-09-09,Target run,Shopping,75.01
+2026-09-03,Target run,Shopping,93.68
+2026-09-01,Kids activities,Other,194.29
+2026-09-02,Kids activities,Other,99.54

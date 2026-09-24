@@ -30,6 +30,8 @@ export const CATEGORY_COLORS: Record<Category, string> = {
   Other: '#64748b',
 }
 
+export type Budgets = Record<Category, number>
+
 export interface Expense {
   id: string
   description: string
