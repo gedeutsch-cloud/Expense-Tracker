@@ -61,3 +61,27 @@ def test_html_to_text_collapses_blank_lines():
     from app.sources import html_to_text
 
     assert html_to_text("<p>One</p><p>&nbsp;</p><p>&nbsp;</p><p>Two &amp; three</p>") == "One\n\nTwo & three"
+
+
+def test_application_note_is_two_lines():
+    from app.drafts import application_note
+    from app.profile import DEFAULT_PROFILE
+
+    profile = {**DEFAULT_PROFILE, "ai_project": "I built an AI study-buddy prototype"}
+    note = application_note({"title": "Product Manager", "company": "Khan Academy"}, profile)
+    assert len(note.splitlines()) == 2
+    assert "study-buddy" in note
+
+
+def test_jobs_remote_filter_can_be_unchecked(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app import db
+
+    monkeypatch.setattr(db, "DB_PATH", tmp_path / "t.db")
+    from app.main import app
+
+    with TestClient(app) as client:
+        assert 'value="1" checked' in client.get("/jobs").text
+        assert 'value="1" checked' in client.get("/jobs?remote=0&remote=1").text
+        assert 'value="1" checked' not in client.get("/jobs?remote=0").text

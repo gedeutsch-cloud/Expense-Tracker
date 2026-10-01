@@ -21,7 +21,7 @@ def application_note(job: dict, profile: dict) -> str:
         f"{profile.get('personal_stake', '').rstrip('.')}.",
     ]
     if profile.get("ai_project"):
-        lines.append(f"{profile['ai_project'].rstrip('.')}.")
+        lines[1] += f" {profile['ai_project'].rstrip('.')}."
     return "\n".join(lines)
 
 
