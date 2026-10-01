@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row between"><h1>Jobs</h1>{% include "_refresh.html" %}</div>
+<form class="filters card" method="get">
+  <input name="q" value="{{ q }}" placeholder="Search title, company, description">
+  <select name="tier">
+    {% for v, l in [("","All companies"),("target","Target companies only"),("1","Tier 1: Ed tech"),("2","Tier 2: Mental health"),("3","Tier 3: Applied AI")] %}
+    <option value="{{ v }}" {{ 'selected' if tier == v }}>{{ l }}</option>{% endfor %}
+  </select>
+  <label>Min score <input type="number" name="min_score" value="{{ min_score }}" min="0" max="100" style="width:4.5em"></label>
+  <label><input type="checkbox" name="remote" value="1" {{ 'checked' if remote == '1' }}> Remote only</label>
+  <select name="view">
+    {% for v in ["open","saved","dismissed"] %}<option value="{{ v }}" {{ 'selected' if view == v }}>{{ v|capitalize }}</option>{% endfor %}
+  </select>
+  <button class="btn">Filter</button>
+</form>
+<p class="muted small">{{ jobs|length }} jobs. Hover a score to see why it ranked there.</p>
+<table class="jobs card">
+  <thead><tr><th>Fit</th><th>Role</th><th>Company</th><th>Posted</th><th>Source</th><th></th></tr></thead>
+  <tbody>{% for job in jobs %}{% include "_jobrow.html" %}{% else %}<tr><td colspan="6" class="muted">No jobs match. Try lowering the min score or click Refresh jobs.</td></tr>{% endfor %}</tbody>
+</table>
+{% endblock %}

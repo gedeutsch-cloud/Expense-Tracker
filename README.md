@@ -44,3 +44,7 @@ Scotch Plains township's median household income is $183,655 ([Census QuickFacts
 - `src/csv.ts` — CSV reading and writing
 - `src/storage.ts` — load/save expenses and budgets in `localStorage`
 - `src/types.ts` — the `Expense` shape and category list/colors
+
+## PM Job Finder
+
+`pm-job-finder/` is a separate Python app (FastAPI + SQLite) for a remote Product Manager job search: it pulls and ranks PM roles from target companies' job boards, matches them against your LinkedIn connections, drafts outreach, and tracks applications. See [`pm-job-finder/README.md`](pm-job-finder/README.md) to run it.

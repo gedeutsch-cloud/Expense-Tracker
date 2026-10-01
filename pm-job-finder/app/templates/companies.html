@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Target companies</h1>
+<p class="muted">From the search plan. Open-role counts are matching PM roles found on the company's job board (score 40+). Companies marked "manual" don't expose a public job feed; check their careers page or LinkedIn.</p>
+{% for tier, lane in lanes.items() %}
+<section class="card">
+  <h2>Tier {{ tier }}: {{ lane }}</h2>
+  <table class="jobs">
+    <thead><tr><th>Company</th><th>What they build</th><th>PM roles</th><th>Your connections</th><th></th></tr></thead>
+    <tbody>
+    {% for c in companies if c.tier == tier %}
+    <tr>
+      <td><b>{{ c.name }}</b></td>
+      <td class="small">{{ c.what }}</td>
+      <td>{% if c.ats %}<a href="/jobs?q={{ c.name|urlencode }}&min_score=0&remote=">{{ job_counts.get(c.name, 0) }}</a>{% else %}<span class="muted small">manual</span>{% endif %}</td>
+      <td>{% if people[c.name] %}<a href="/network#{{ c.name|urlencode }}">{{ people[c.name] }}</a>{% else %}<span class="muted">0</span>{% endif %}</td>
+      <td class="actions">
+        {% if c.careers %}<a class="btn sm" href="{{ c.careers }}" target="_blank" rel="noopener">Careers</a>{% endif %}
+        <a class="btn sm" href="{{ linkedin_jobs_url('product manager ' ~ c.name, false) }}" target="_blank" rel="noopener">LinkedIn jobs</a>
+        <a class="btn sm" href="{{ linkedin_people_url(c.name) }}" target="_blank" rel="noopener">People</a>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endfor %}
+{% endblock %}

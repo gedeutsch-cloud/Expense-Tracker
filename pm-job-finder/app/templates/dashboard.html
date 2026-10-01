@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row between">
+  <h1>This week</h1>
+  {% include "_refresh.html" %}
+</div>
+{% if total_jobs == 0 %}
+<div class="card callout">Start by clicking <b>Refresh jobs</b> to pull PM openings from {{ 30 }}+ target companies and remote job boards. Then fill in your <a href="/profile">Profile</a> and import your <a href="/network">LinkedIn connections</a>.</div>
+{% endif %}
+<div class="grid3">
+  {% for kind, label in [("application","Targeted applications"),("outreach","Warm outreaches"),("info_call","Informational calls")] %}
+  {% set lo, hi = goals[kind] %}
+  <div class="card goal">
+    <div class="goal-num">{{ counts[kind] }}<span class="muted"> / {{ lo if lo == hi else lo ~ '-' ~ hi }}</span></div>
+    <div>{{ label }}</div>
+    <div class="bar"><div style="width: {{ [100, (counts[kind] * 100 // lo)]|min }}%"></div></div>
+    {% if kind != 'application' %}
+    <form method="post" action="/activities" class="inline-log">
+      <input type="hidden" name="kind" value="{{ kind }}"><input type="hidden" name="back" value="/">
+      <input name="company" placeholder="Company"><input name="person" placeholder="Person">
+      <button class="btn sm">Log</button>
+    </form>
+    {% else %}<div class="muted small">Logged automatically when you mark a job applied</div>{% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+<div class="grid2">
+  <section class="card">
+    <div class="row between"><h2>Top matches</h2><a href="/jobs">All jobs &rarr;</a></div>
+    {% if top %}
+    <table class="jobs"><tbody>{% for job in top %}{% include "_jobrow.html" %}{% endfor %}</tbody></table>
+    {% else %}<p class="muted">No jobs yet.</p>{% endif %}
+  </section>
+  <div>
+    <section class="card">
+      <h2>Pipeline</h2>
+      <div class="pipeline">
+        {% for s in statuses %}<div><b>{{ pipeline.get(s, 0) }}</b><span>{{ s }}</span></div>{% endfor %}
+      </div>
+      <p class="muted small">{{ n_connections }} LinkedIn connections imported &middot; <a href="/network">Network</a></p>
+    </section>
+    <section class="card">
+      <h2>LinkedIn searches (remote, past week)</h2>
+      <ul class="links">
+        {% for label, kw in saved_searches %}<li><a href="{{ linkedin_jobs_url(kw) }}" target="_blank" rel="noopener">{{ label }}</a></li>{% endfor %}
+      </ul>
+      <h2>Niche boards</h2>
+      <ul class="links">
+        {% for name, url, why in boards %}<li><a href="{{ url }}" target="_blank" rel="noopener">{{ name }}</a> <span class="muted small">{{ why }}</span></li>{% endfor %}
+      </ul>
+    </section>
+    <section class="card" id="plan">
+      <h2>Close the AI gap in 30 days</h2>
+      {% for key, label in plan %}
+      <form method="post" action="/plan/{{ key }}" class="check">
+        <button class="checkbox {{ 'done' if key in plan_done }}" aria-label="toggle">{{ '&#10003;'|safe if key in plan_done }}</button>
+        <span class="{{ 'strike' if key in plan_done }}">{{ label }}</span>
+      </form>
+      {% endfor %}
+    </section>
+    <section class="card">
+      <h2>Recent activity</h2>
+      {% for a in recent %}<div class="small">{{ a.date }} &middot; <b>{{ a.kind.replace('_',' ') }}</b> {{ a.company }} {{ a.person }} <span class="muted">{{ a.notes }}</span></div>
+      {% else %}<p class="muted small">Nothing logged yet.</p>{% endfor %}
+    </section>
+  </div>
+</div>
+{% endblock %}

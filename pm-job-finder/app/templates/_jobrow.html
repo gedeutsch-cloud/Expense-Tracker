@@ -1,0 +1,15 @@
+<tr>
+  <td><span class="score s{{ (job.score // 20) * 20 }}" title="{{ job.reasons }}">{{ job.score }}</span></td>
+  <td>
+    <a href="/jobs/{{ job.id }}" class="job-title">{{ job.title }}</a>
+    <div class="muted small">{{ job.location or 'Location n/a' }}{% if job.salary_text %} &middot; {{ job.salary_text }}{% endif %}</div>
+  </td>
+  <td>{{ job.company }}{% if job.tier %} <span class="tag t{{ job.tier }}">T{{ job.tier }}</span>{% endif %}</td>
+  <td class="muted small">{{ (job.posted_at or '')[:10] }}</td>
+  <td class="muted small">{{ job.source }}</td>
+  <td class="actions">
+    {% if applied is defined and job.id in applied %}<span class="tag ok">Applied</span>{% endif %}
+    <a class="btn sm" href="{{ job.url }}" target="_blank" rel="noopener">Posting</a>
+    <a class="btn sm" href="/jobs/{{ job.id }}">Prep</a>
+  </td>
+</tr>

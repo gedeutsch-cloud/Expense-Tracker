@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Tracker</h1>
+<section class="card">
+  <h2>Applications</h2>
+  <table class="jobs">
+    <thead><tr><th>Company</th><th>Role</th><th>Applied</th><th>Status / contact / notes</th><th></th></tr></thead>
+    <tbody>
+    {% for a in applications %}
+    <tr>
+      <td><b>{{ a.company }}</b></td>
+      <td>{% if a.url %}<a href="{{ a.url }}" target="_blank" rel="noopener">{{ a.role }}</a>{% else %}{{ a.role }}{% endif %}</td>
+      <td class="small">{{ a.date_applied }}</td>
+      <td>
+        <form method="post" action="/tracker/{{ a.id }}" class="row gap">
+          <select name="status">{% for s in statuses %}<option {{ 'selected' if s == a.status }}>{{ s }}</option>{% endfor %}</select>
+          <input name="contact" value="{{ a.contact or '' }}" placeholder="Contact">
+          <input name="notes" value="{{ a.notes or '' }}" placeholder="Notes" class="grow">
+          <button class="btn sm">Save</button>
+        </form>
+      </td>
+      <td><form method="post" action="/tracker/{{ a.id }}/delete" onsubmit="return confirm('Delete this application?')"><button class="btn sm ghost">Delete</button></form></td>
+    </tr>
+    {% else %}<tr><td colspan="5" class="muted">No applications yet. Use "I applied" on a job, or add one below (e.g. for LinkedIn Easy Apply).</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</section>
+<section class="card">
+  <h2>Add an application manually</h2>
+  <form method="post" action="/tracker" class="row gap wrap">
+    <input name="company" placeholder="Company" required>
+    <input name="role" placeholder="Role" required>
+    <input name="url" placeholder="Posting URL">
+    <select name="status">{% for s in statuses %}<option {{ 'selected' if s == 'applied' }}>{{ s }}</option>{% endfor %}</select>
+    <input name="contact" placeholder="Contact">
+    <input name="notes" placeholder="Notes">
+    <button class="btn primary">Add</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Activity log</h2>
+  <table class="jobs"><tbody>
+  {% for a in activities %}<tr><td class="small">{{ a.date }}</td><td><b>{{ a.kind.replace('_', ' ') }}</b></td><td>{{ a.company }}</td><td>{{ a.person }}</td><td class="small muted">{{ a.notes }}</td></tr>
+  {% else %}<tr><td class="muted">Nothing logged yet.</td></tr>{% endfor %}
+  </tbody></table>
+</section>
+{% endblock %}
