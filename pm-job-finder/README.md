@@ -16,6 +16,10 @@ LinkedIn has no public jobs API and prohibits automated scraping/applying, so th
 
 Requires Python 3.10+.
 
+Easiest: double-click `start-windows.bat` (Windows) or `start-mac.command` (Mac). On first run it creates `.venv` and installs dependencies. It then starts the app and opens http://localhost:8000. If Python is missing, it opens the Python download page instead. On a Mac, if the script is blocked as coming from an unidentified developer, right-click it and choose **Open**.
+
+Manual:
+
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
