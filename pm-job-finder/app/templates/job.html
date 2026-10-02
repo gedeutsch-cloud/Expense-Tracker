@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<p><a href="/jobs">&larr; Jobs</a></p>
+<div class="row between">
+  <div>
+    <h1>{{ job.title }}</h1>
+    <div class="muted">{{ job.company }}{% if company %} &middot; {{ company.what }}{% endif %} &middot; {{ job.location }}{% if job.salary_text %} &middot; {{ job.salary_text }}{% endif %}</div>
+  </div>
+  <span class="score big s{{ (job.score // 20) * 20 }}">{{ job.score }}</span>
+</div>
+<div class="row gap">
+  <a class="btn primary" href="{{ job.url }}" target="_blank" rel="noopener">Open posting &amp; apply</a>
+  <a class="btn" href="{{ linkedin_jobs_url(job.title ~ ' ' ~ job.company, false) }}" target="_blank" rel="noopener">Find on LinkedIn</a>
+  <a class="btn" href="{{ linkedin_people_url(job.company, 'product') }}" target="_blank" rel="noopener">1st/2nd-degree PMs at {{ job.company }}</a>
+  <form method="post" action="/jobs/{{ job.id }}/toggle"><input type="hidden" name="field" value="saved"><input type="hidden" name="back" value="/jobs/{{ job.id }}"><button class="btn">{{ 'Unsave' if job.saved else 'Save' }}</button></form>
+  <form method="post" action="/jobs/{{ job.id }}/toggle"><input type="hidden" name="field" value="dismissed"><input type="hidden" name="back" value="/jobs"><button class="btn">{{ 'Restore' if job.dismissed else 'Not a fit' }}</button></form>
+</div>
+
+<div class="grid2">
+  <div>
+    <section class="card">
+      <h2>1. Your 2-line note</h2>
+      <p class="muted small">Paste into the cover-letter / "anything else" box or a LinkedIn message to the hiring manager. Edit freely.</p>
+      <textarea rows="6" id="note">{{ note }}</textarea>
+      <button class="btn sm copy" data-target="note">Copy</button>
+    </section>
+    <section class="card">
+      <h2>2. Warm intro</h2>
+      {% if people %}
+        <p class="small">You know {{ people|length }} person(s) at {{ job.company }}. A referral beats a cold application by a wide margin.</p>
+        {% for p in people %}
+        <details class="person">
+          <summary><b>{{ p.first_name }} {{ p.last_name }}</b> <span class="muted">{{ p.position }}</span></summary>
+          <textarea rows="8" id="ref{{ p.id }}">{{ referrals[p.id] }}</textarea>
+          <div class="row gap">
+            <button class="btn sm copy" data-target="ref{{ p.id }}">Copy</button>
+            {% if p.url %}<a class="btn sm" href="{{ p.url }}" target="_blank" rel="noopener">Open LinkedIn profile</a>{% endif %}
+            <form method="post" action="/activities"><input type="hidden" name="kind" value="outreach"><input type="hidden" name="company" value="{{ job.company }}"><input type="hidden" name="person" value="{{ p.first_name }} {{ p.last_name }}"><input type="hidden" name="notes" value="Referral ask: {{ job.title }}"><input type="hidden" name="back" value="/jobs/{{ job.id }}"><button class="btn sm">Log outreach</button></form>
+          </div>
+        </details>
+        {% endfor %}
+      {% else %}
+        <p class="small muted">No direct connections found at {{ job.company }}. <a href="/network">Import connections</a> or check <a href="{{ linkedin_people_url(job.company) }}" target="_blank" rel="noopener">2nd-degree connections on LinkedIn</a> for someone who can introduce you.</p>
+      {% endif %}
+    </section>
+    <section class="card">
+      <h2>3. Mark applied</h2>
+      {% if application %}
+        <p>Applied {{ application.date_applied }} &middot; status <b>{{ application.status }}</b> &middot; <a href="/tracker">Tracker</a></p>
+      {% else %}
+      <form method="post" action="/jobs/{{ job.id }}/apply" class="stack">
+        <input name="contact" placeholder="Referrer / contact (optional)">
+        <input name="notes" placeholder="Notes (optional)">
+        <button class="btn primary">I applied</button>
+      </form>
+      {% endif %}
+    </section>
+    <section class="card">
+      <h2>Why it scored {{ job.score }}</h2>
+      <ul class="small">{% for r in job.reasons.split('\n') if r %}<li>{{ r }}</li>{% endfor %}</ul>
+    </section>
+  </div>
+  <section class="card description">
+    <h2>Job description</h2>
+    <div class="desc">{{ job.description or 'No description available; open the posting.' }}</div>
+  </section>
+</div>
+{% endblock %}

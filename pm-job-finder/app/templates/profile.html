@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Profile</h1>
+{% if saved %}<div class="card callout">Saved. All jobs were re-scored.</div>{% endif %}
+<form method="post" action="/profile" class="card stack">
+  <p class="muted small">Used to rank jobs and draft notes. Lead with "engineer who ships product".</p>
+  {% for key, label, kind in [
+      ("name", "Your name", "input"),
+      ("headline", "Positioning line", "input"),
+      ("target_titles", "Target titles (comma-separated)", "input"),
+      ("second_lane_titles", "Second-lane titles", "input"),
+      ("domain_keywords", "Domain keywords that boost a job", "textarea"),
+      ("product_wins", "Product work you've done (features shaped, users talked to, tradeoffs, a metric that moved)", "textarea"),
+      ("personal_stake", "Personal stake in the mission", "textarea"),
+      ("ai_project", "Your AI line (e.g. 'I've been building with LLM tools since March and shipped a quiz generator for kids' books')", "textarea"),
+  ] %}
+  <label>{{ label }}
+    {% if kind == "textarea" %}<textarea name="{{ key }}" rows="3">{{ profile[key] }}</textarea>{% else %}<input name="{{ key }}" value="{{ profile[key] }}">{% endif %}
+  </label>
+  {% endfor %}
+  <label>Minimum base salary <input type="number" name="min_salary" value="{{ profile.min_salary }}" step="5000"></label>
+  <label class="row gap"><input type="checkbox" name="us_only" {{ 'checked' if profile.us_only }}> Penalize roles that look restricted to non-US locations</label>
+  <button class="btn primary">Save &amp; re-score</button>
+</form>
+{% endblock %}

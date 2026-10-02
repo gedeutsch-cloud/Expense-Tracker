@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}PM Job Finder{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/">PM Job Finder</a>
+  <nav>
+    {% for key, label, href in [("dashboard","This week","/"),("jobs","Jobs","/jobs"),("companies","Target companies","/companies"),("network","Network","/network"),("tracker","Tracker","/tracker"),("profile","Profile","/profile")] %}
+      <a href="{{ href }}" class="{{ 'on' if active == key or (key == 'jobs' and active == 'job') else '' }}">{{ label }}</a>
+    {% endfor %}
+  </nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Network</h1>
+{% if message %}<div class="card callout">{{ message }}</div>{% endif %}
+<section class="card">
+  <h2>Import LinkedIn connections</h2>
+  <p class="small">LinkedIn &rarr; <b>Settings &amp; Privacy</b> &rarr; <b>Data privacy</b> &rarr; <b>Get a copy of your data</b> &rarr; choose <b>Connections</b> &rarr; Request archive. LinkedIn emails a download link (usually within ~10 minutes). Upload the <code>Connections.csv</code> file here. Re-upload any time to refresh.</p>
+  <form method="post" action="/network/upload" enctype="multipart/form-data" class="row gap">
+    <input type="file" name="file" accept=".csv" required>
+    <button class="btn primary">Import</button>
+  </form>
+  <p class="muted small">{{ total }} connections imported. Stored only in this app's local database.</p>
+</section>
+
+<h2>People at target companies &amp; open-role companies</h2>
+{% for g in groups %}
+<section class="card" id="{{ g.company|urlencode }}">
+  <h3>{{ g.company }}{% if g.tier %} <span class="tag t{{ g.tier }}">T{{ g.tier }}</span>{% endif %} <span class="muted small">{{ g.people|length }} connection(s)</span></h3>
+  {% for p in g.people %}
+  <details class="person">
+    <summary><b>{{ p.first_name }} {{ p.last_name }}</b> <span class="muted">{{ p.position }}</span></summary>
+    <div class="grid2">
+      <div><div class="small muted">Referral ask</div><textarea rows="8" id="r{{ p.id }}">{{ p.referral }}</textarea><button class="btn sm copy" data-target="r{{ p.id }}">Copy</button></div>
+      <div><div class="small muted">Informational call ask</div><textarea rows="8" id="i{{ p.id }}">{{ p.info_call }}</textarea><button class="btn sm copy" data-target="i{{ p.id }}">Copy</button></div>
+    </div>
+    <div class="row gap">
+      {% if p.url %}<a class="btn sm" href="{{ p.url }}" target="_blank" rel="noopener">Open LinkedIn profile</a>{% endif %}
+      <form method="post" action="/activities"><input type="hidden" name="kind" value="outreach"><input type="hidden" name="company" value="{{ g.company }}"><input type="hidden" name="person" value="{{ p.first_name }} {{ p.last_name }}"><input type="hidden" name="back" value="/network"><button class="btn sm">Log outreach</button></form>
+      <form method="post" action="/activities"><input type="hidden" name="kind" value="info_call"><input type="hidden" name="company" value="{{ g.company }}"><input type="hidden" name="person" value="{{ p.first_name }} {{ p.last_name }}"><input type="hidden" name="back" value="/network"><button class="btn sm">Log info call</button></form>
+    </div>
+  </details>
+  {% endfor %}
+</section>
+{% else %}
+<p class="muted">{{ 'No connections at target companies yet.' if total else 'Import your connections to see who you know.' }} You can also browse <a href="/companies">target companies</a> and use the "People" links to see 2nd-degree connections on LinkedIn.</p>
+{% endfor %}
+
+{% if product_people %}
+<section class="card">
+  <h2>Product people in your network</h2>
+  <p class="small muted">Good candidates for informational calls about how PM hiring works.</p>
+  <table class="jobs"><tbody>
+  {% for p in product_people %}<tr><td><b>{{ p.first_name }} {{ p.last_name }}</b></td><td class="small">{{ p.position }}</td><td class="small">{{ p.company }}</td><td>{% if p.url %}<a href="{{ p.url }}" target="_blank" rel="noopener">Profile</a>{% endif %}</td></tr>{% endfor %}
+  </tbody></table>
+</section>
+{% endif %}
+{% endblock %}

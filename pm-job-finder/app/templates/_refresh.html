@@ -1,0 +1,7 @@
+<div class="refresh" data-running="{{ 1 if refresh.running else 0 }}">
+  <button class="btn primary" id="refresh-btn" {{ 'disabled' if refresh.running }}>{{ 'Refreshing...' if refresh.running else 'Refresh jobs' }}</button>
+  <span class="muted" id="refresh-status">
+    {% if refresh.last_run %}Last refresh {{ refresh.last_run[:16].replace('T', ' ') }} UTC{% else %}Not refreshed yet{% endif %}
+    {% if refresh.errors %} &middot; {{ refresh.errors|length }} source(s) failed{% endif %}
+  </span>
+</div>
